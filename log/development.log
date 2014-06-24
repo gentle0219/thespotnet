@@ -379,3 +379,24 @@ Processing by HomeController#index as HTML
   Rendered layouts/_messages.html.haml (0.1ms)
   Rendered layouts/_footer.html.haml (0.1ms)
 Completed 200 OK in 15ms (Views: 14.7ms)
+DEPRECATION WARNING: devise :token_authenticatable is deprecated. Please check Devise 3.1 release notes for more information on how to upgrade. (called from <class:User> at /Volumes/Work/Workspace/rails/thespotnet/app/models/user.rb:10)
+Overwriting existing field avatar in class User.
+
+
+Started GET "/" for 127.0.0.1 at 2014-06-24 13:19:12 +0800
+Processing by HomeController#index as HTML
+  Rendered home/index.html.haml within layouts/application (3.6ms)
+  Rendered layouts/_navigation.html.haml (9.9ms)
+  Rendered layouts/_messages.html.haml (2.2ms)
+  Rendered layouts/_footer.html.haml (1.6ms)
+Completed 200 OK in 2517ms (Views: 2503.7ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2014-06-24 13:19:16 +0800
+Processing by SessionsController#new as HTML
+  Rendered devise/shared/_links.erb (1.4ms)
+  Rendered devise/sessions/new.html.haml within layouts/application (102.6ms)
+  Rendered layouts/_navigation.html.haml (0.6ms)
+  Rendered layouts/_messages.html.haml (0.1ms)
+  Rendered layouts/_footer.html.haml (0.1ms)
+Completed 200 OK in 121ms (Views: 117.0ms)

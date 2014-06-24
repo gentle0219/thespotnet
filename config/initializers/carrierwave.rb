@@ -4,8 +4,8 @@ CarrierWave.configure do |config|
   if Rails.env.production?
     config.fog_credentials = {
       :provider               => 'AWS',
-      :aws_access_key_id      => ENV['S3_API_KEY_ID'],
-      :aws_secret_access_key  => ENV['S3_API_SECRET_KEY'],
+      :aws_access_key_id      => "ENV['S3_API_KEY_ID']",
+      :aws_secret_access_key  => "ENV['S3_API_SECRET_KEY']",
       :region                 => 'eu-west-1',                       #ENV['S3_API_REGION']
       #:host                   => "#{ENV['S3_API_ASSET_URL']}/#{ENV['S3_API_BUCKET_NAME']}",
       #:endpoint               => 'http://thespotnet.s3-website-us-west-1.amazonaws.com' # optional, defaults to nil
