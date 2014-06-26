@@ -9,11 +9,14 @@
     - else
       %li
         = link_to "Home", admin_path
-
+    - if current_page?(admin_users_path)
+      %li.active
+        = link_to "Users", admin_users_path  
+    - else
+      %li
+        = link_to "Users", admin_users_path  
     %li
-      = link_to "Users", admin_users_path  
-    %li
-      = link_to "Events", admin_events_path
+      = link_to "MainIssue", admin_events_path
     %li
       = link_to "Content", "#"
     %li

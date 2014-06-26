@@ -6,7 +6,6 @@ class HomeController < ApplicationController
   def index
   end
 
-
   def create_session
     email    = params[:email]
     password = params[:password]
@@ -91,9 +90,6 @@ class HomeController < ApplicationController
       render :json => {faild:'cannot find this device'}, :status => 401
     end
   end
-
-
-
 
   def create_account
     headers['Access-Control-Allow-Origin'] = '*'

@@ -17,25 +17,27 @@
         %tr
           %th Email            
           %th User Name            
-          %th Logged in via            
+          %th Role
           %th App Visits            
           %th Event's Count
           %th Actions
       %tbody
-        - @users.reject{|u| User::ROLES.include?(u.role)}.each do |u|
+        - @users.each do |u|
           %tr
-            %td= u.email.index('@')==49 ? u.email[13..21]+'@twitter.com' : u.email
-            %td= u.user_name
-            %td= u.social_state
+            %td= u.email
+            %td= u.name
+            %td= u.role
             %td= u.sign_in_count
-            %td= u.events.count
             %td
-              = link_to(admin_edit_user_path(u), class: 'btn btn-mini', :"data-no-turbolink"=>true) do
-                %i.icon-book
+            %td
+              = link_to(edit_admin_user_path(u), class: 'btn btn-mini', :"data-no-turbolink"=>true) do
+                %i.icon-pencil
 
-              = link_to(admin_delete_user_path(u), class: 'btn btn-mini', method: :delete, data: {confirm: "Are you sure"}) do
+              = link_to(admin_user_path(u), class: 'btn btn-mini', method: :delete, data: {confirm: "Are you sure"}) do
                 %i.icon-trash
       %tfoot
         %tr
-          %td{colspan: 11}
+          %td{colspan: 5}
             = will_paginate @users
+          %td
+            = link_to "New User", new_admin_user_path, class: 'btn btn-primary'

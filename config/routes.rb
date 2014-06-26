@@ -1,15 +1,10 @@
-TheSpotNet::Application.routes.draw do
-	namespace :admin do
+TheSpotNet::Application.routes.draw do	
+  namespace :admin do
     get '', to: 'dashboard#index', as: '/'
 
-    get 'users'                         => 'users#index'
-    match 'update'                      => 'users#update',        via: [:post, :patch]
-    get 'edit_user/:id'                 => 'users#edit',   				as: 'edit_user'
-    delete 'delete_user/:id'            => 'users#delete_user', 	as: 'delete_user'
-    get 'inactive'                      => 'users#inactive'
-
-    #get 'events'                        => 'events#index'
-    resources :events
+    resources :users
+    resources :properties
+    resources :cleaners
   end
   
   mount API => '/'

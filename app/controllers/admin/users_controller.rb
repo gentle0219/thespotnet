@@ -4,9 +4,9 @@ class Admin::UsersController < ApplicationController
 
   def index
     if params[:search].present?
-      @users = User.search(params[:search]).paginate(page: params[:page], :per_page => 10)
+      @users = current_user.members.search(params[:search]).paginate(page: params[:page], :per_page => 10)
     else
-      @users = User.all.paginate(page: params[:page], :per_page => 10)  
+      @users = current_user.members.all.paginate(page: params[:page], :per_page => 10)  
     end
   	
   	respond_to do |format|
@@ -15,58 +15,54 @@ class Admin::UsersController < ApplicationController
     end
   end
   
+  def new
+    @user = User.new
+  end
+  def create
+    @user = current_user.members.build(params[:user].permit(:name, :email, :password, :password_confirmation, :role))
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to action: :index }        
+        format.json { render json: @user, status: :created, location: @user }
+        flash[:notice] = 'New user created successfully'
+      else
+        format.html { render action: "new" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   def edit
     @user = User.find(params[:id])
-    @events = @user.events.paginate(page: params[:page], :per_page => 10)
   end
   # The User profile update
   #
-  # @route            
+  # @route
   # @wireframe    
   def update
-    @user=User.find(params[:id])
-    @user.assign_attributes(avatar:params[:user][:avatar]) if params[:user][:avatar].present?    
+    @user = User.find(params[:id])
+    @user.assign_attributes(params[:user].permit(:name, :email, :password, :password_confirmation, :role))
     respond_to do |format|
       if @user.save
-        format.html { redirect_to action: :index}
-        flash.now[:notice] = 'Successfully updated user'
+        format.html { redirect_to action: :index }        
+        format.json { render json: @user, status: :created, location: @user }
+        flash[:notice] = 'Updated user'
       else
-        format.html { render action: :edit_user }
-        format.json { render json: @user.errors, status: :unprocessable_entity}
+        format.html { render action: "edit" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  
-  def account_settings
-  end
-
-  def notification_settings
-  end
-
-  def settings
-  end
-  # The User Profile Delete
-  #
-  # @route            GET /admin/delete_user
-  # @wireframe        
-  
-  def delete_user
+  def destroy
     @user = User.find(params[:id])
     @user.destroy unless @user.nil?
     respond_to do |format|
       format.html { redirect_to action: :index}
       format.json { head :no_content}
+      flash[:notice] = 'Deleted new user'
     end
   end
 
-  # The User Profile Inactive
-  #
-  # @route            GET /admin/inactive
-  # @wireframe          
-  def inactive
-    @user = User.find(params[:id])
-    @user.update_attribute(:active, !@user.active)
-    redirect_to :action => :index and return
-  end
+  
 end
