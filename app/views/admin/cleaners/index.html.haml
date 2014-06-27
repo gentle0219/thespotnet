@@ -10,4 +10,4 @@
           .span2
             = property.name
           .span4
-            = select_tag :cleaners, options_for_select(current_user.members.map{|m| [m.email, m.id.to_s]})
+            = select_tag :cleaners, options_for_select(current_user.members.map{|m| [m.email, m.id.to_s]}, include_blank: true), name: "cleaners[#{property.id.to_s}]"

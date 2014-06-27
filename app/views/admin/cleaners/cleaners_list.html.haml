@@ -1,0 +1,15 @@
+.row.assign-cleaners
+  .row
+    .span4.pull-right
+      = link_to "Clear All", "#", class: 'btn btn-default'
+      = link_to "Save", "javascript:$('#update_cleaners').submit()", class: 'btn btn-primary'
+  .row
+    = form_for :cleaner, url: admin_update_cleaners_path, html: {class: 'form-horizontal', id: 'update_cleaners'} do |f|
+      - @properties.each do |property|
+        .span6
+          .row
+            .span2
+              = property.name
+            .span4
+              - assign = Assign.where(property_id:property.id).first
+              = select_tag :cleaners, options_for_select(current_user.members.map{|m| [m.email, m.id.to_s]}, selected: assign.present? ? assign.member_id.to_s : ''), name: "cleaners[#{property.id.to_s}]"

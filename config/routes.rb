@@ -4,7 +4,12 @@ TheSpotNet::Application.routes.draw do
 
     resources :users
     resources :properties
-    resources :cleaners
+    #resources :cleaners
+    get 'cleaners_list'                   => 'cleaners#cleaners_list'    
+    post 'update_cleaners'                => 'cleaners#update_cleaners'
+    get 'time_clocks'                     => 'cleaners#time_clocks'
+    get 'management'                     => 'cleaners#management'
+    
   end
   
   mount API => '/'

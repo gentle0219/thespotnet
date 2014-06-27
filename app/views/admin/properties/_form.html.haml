@@ -5,6 +5,7 @@
       .general
         %fieldset.group-border
           %legend.group-border General
+          %br/
           .row
             .span4
               = f.input :name, required: true
@@ -37,6 +38,7 @@
       .owner-info
         %fieldset.group-border
           %legend.group-border Owner Info
+          %br/
           .row
             .span4
               .control-group.string.required.owner_name
@@ -93,6 +95,7 @@
       .note-info
         %fieldset.group-border
           %legend.group-border Notes
+          %br/
           .row
             =f.input :notes, as: :text, label: false, input_html:{cols:80, rows:5, class: 'span10'}
     .form-actions
