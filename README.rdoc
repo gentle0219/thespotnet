@@ -11,34 +11,8 @@
     results: 
       return user data JSON
       {user_name,email,phone,social,avatar, attend_events, created_events}
-==== Get contact info
-    GET: /api/v1/accounts/contact_info
-    
-    parameters:
-      token:      String *required
-      contact_id  String *required
-    results: 
-      return user data JSON
-      {user_name,email,phone,social,avatar, attend_events, created_events}
-
-==== Create account
-    POST: /api/v1/accounts/create
-    
-    parameters accepted
-      'email'       String,      *required
-      'passowrd'    String,      *required
-      'user_name'   String,      optional
-      'location'    String,      *requried
-      'dev_id'      String
-      'platform'    String (ios or android)
-      'interest'    String,      *required(facebook, twitter, google)
-
-==== Destroy account API
-    POST: /api/v1/accounts/destroy
-    parameters:
-      token:      String *required
-    results: 
-      return signout and success string
+    EX
+    curl -X POST -d 'email=tester@email.com&' http://localhost:3000/api/v1/customers/vehicle
 
 ==== Sign In(from app's account)
     
@@ -50,32 +24,15 @@
       'dev_id'     String,      device id or regid
       'platform'   String,      ios, android
     results:
-      {id,user_name,email,token, auth_id,social, avatar, state, phone}
-
-
-==== Sign In(from social)
-    
-    POST: /api/v1/accounts/create
-    
-    parameters accepted
-      'email'         String,      *required
-      'user_name'     String,      optional
-      'token'         String,      *requried (facebook uid)
-      'dev_id'        String
-      'platform'      String       (ios or android)
-      'social'        String,      *required(facebook, twitter, google)
-      'phone'         String,      optional
-      'country_code'  String,      optional
-      'interest'      String,      optional
-    results:
-      {id,user_name,email,token, auth_id,social, avatar, state, phone}
+      {id,name,email,auth_id,role}
+    EX: curl -X POST -d 'email=tester@email.com&password=asdfasdf&dev_id=1234567890&platform=iPad' http://localhost:3000/api/v1/accounts/sign_in
 
 ==== Sign Out
     POST: 'api/v1/accounts/sign_out'
 
     parameters accepted
     'email'      String,      *required
-
+    EX: EX: curl -X POST -d 'email=tester@email.com' http://localhost:3000/api/v1/accounts/sign_out
 
 ==== Forgotten Password
     GET: /api/v1/accounts/forgotten_password

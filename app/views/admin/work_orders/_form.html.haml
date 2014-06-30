@@ -1,0 +1,4 @@
+.row  
+  = simple_form_for([:admin, @work_order], :html=> {class: 'form-horizontal', multipart: true}) do |f|
+    = f.error_notification
+    .form-inputs

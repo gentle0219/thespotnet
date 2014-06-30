@@ -56,7 +56,10 @@ class User
   belongs_to :manager, :class_name => "User"
   has_many :members, :class_name => "User", :foreign_key=>"manager_id", :dependent => :destroy
   
+  has_many :devices
   has_many :properties
+  has_many :work_orders
+
   
   validates_presence_of :role
 
