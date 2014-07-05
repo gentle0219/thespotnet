@@ -18,6 +18,7 @@ class Inventory
   field :notes,                 type: String
   
   belongs_to :member, class_name: "User"
+  belongs_to :user
   belongs_to :property
 
 end

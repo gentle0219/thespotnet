@@ -46,11 +46,12 @@
 ==== Create new work order
     POST: api/v1/work_orders
     Parameters
-        auth_token
-        location 
-        category
-        title
-        details
+        auth_token    String
+        location      String
+        category      category_id
+        level         String
+        title         String
+        details       String
     Returns
       Success String
 
@@ -58,3 +59,11 @@
 
     RESULTS: {success:'Created new work order'}
 
+==== Get Category list
+    GET: api/v1/work_orders/categories
+    Parameters:
+
+    Returns
+      JSON object
+
+    EX:http://thespotnet.herokuapp.com/api/v1/work_orders/categories

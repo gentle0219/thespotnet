@@ -59,7 +59,7 @@ class User
   has_many :devices
   has_many :properties
   has_many :work_orders
-
+  has_many :inventories
   
   validates_presence_of :role
 
