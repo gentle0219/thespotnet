@@ -22,8 +22,9 @@ module Endpoints
         end
       end
 
+      desc "Get category list"
       get :categories do
-        Category.all_categories.map{|cat| [cat.full_name.join('->'), cat.id]}
+        Category.all_categories.map{|cat| {cat.full_name.join('->'), cat.id.to_s}}
       end
 
     end
