@@ -63,6 +63,10 @@ class User
   
   validates_presence_of :role
 
+  def find_by_token token
+    where(authentication_token:token).first
+  end
+
   def self.all_search(search)
     search.present? ? User.or({ :email => /.*#{search}*./ }, { :name => /.*#{search}*./ }) : User.all    
   end

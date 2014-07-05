@@ -9,8 +9,7 @@ TheSpotNet::Application.routes.draw do
     get 'cleaners_list'                   => 'cleaners#cleaners_list'    
     post 'update_cleaners'                => 'cleaners#update_cleaners'
     get 'time_clocks'                     => 'cleaners#time_clocks'
-    get 'management'                     => 'cleaners#management'
-    
+    get 'management'                     => 'cleaners#management'    
   end
   
   mount API => '/'

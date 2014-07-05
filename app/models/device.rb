@@ -5,7 +5,7 @@ class Device
   DEVICE_PLATFORM=%w[ios android]
 
   field :dev_id,          :type => String  
-  field :platform,        :type => String,    default: 'ios'
+  field :platform,        :type => String,    default: 'android'
   field :badge_count,     :type => Integer,   default: 0
   
   belongs_to :user  

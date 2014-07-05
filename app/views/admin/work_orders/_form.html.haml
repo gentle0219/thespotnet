@@ -1,4 +1,26 @@
-.row  
+.row.workorder-form-page
   = simple_form_for([:admin, @work_order], :html=> {class: 'form-horizontal', multipart: true}) do |f|
     = f.error_notification
-    .form-inputs
+    .general
+      .form-inputs
+        %fieldset.group-border
+          %legend.group-border General Info
+          .row
+            .span4
+              = f.input :location, required: true
+            .span4
+              = f.input :category, :collection => Category.all_categories.collect{|cat| [cat.full_name.join('->'), cat.id]}
+            .span4
+              = f.input :property, :collection => current_user.properties.collect{|property| [property.name, property.id]}
+          .row
+            .span12
+              = f.input :title, required: true
+          .row
+            .span12
+              = f.input :details, as: :text, required: true, input_html:{class: 'span9', style:'max-width: 894px;'}
+      .form-actions
+        .row
+          .span2.offset3
+            = link_to "Cancel", admin_work_orders_path, class: 'btn btn-danger span1'
+          .span2
+            = f.submit "Save", class: 'btn btn-primary span2'

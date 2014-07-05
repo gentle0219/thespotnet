@@ -32,7 +32,7 @@ class Admin::PropertiesController < ApplicationController
       else
         format.html { render action: :new }
         format.json { render json: @property.errors, status: :unprocessable_entity }
-      end      
+      end
     end
   end
 

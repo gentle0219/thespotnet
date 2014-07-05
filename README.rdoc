@@ -22,9 +22,8 @@
       'email'      String,      *required
       'password'   String,      *requried
       'dev_id'     String,      device id or regid
-      'platform'   String,      ios, android
     results:
-      {id,name,email,auth_id,role}
+      {id,name,email,auth_token,role}
     EX: curl -X POST -d 'email=tester@email.com&password=asdfasdf&dev_id=1234567890&platform=iPad' http://localhost:3000/api/v1/accounts/sign_in
 
 ==== Sign Out
@@ -32,7 +31,7 @@
 
     parameters accepted
     'email'      String,      *required
-    EX: EX: curl -X POST -d 'email=tester@email.com' http://localhost:3000/api/v1/accounts/sign_out
+    EX: curl -X POST -d 'email=tester@email.com' http://the/api/v1/accounts/sign_out
 
 ==== Forgotten Password
     GET: /api/v1/accounts/forgotten_password
@@ -40,3 +39,23 @@
       'email'     String,       *required
     results:
       email will be sent and return success string 
+
+
+
+=== WorkOrders endpoint
+==== Create new work order    
+    POST: api/v1/work_orders
+    Parameters
+        auth_token
+        location 
+        category 
+        property
+        title
+        details
+    Returns
+      Success String
+
+    EX: curl -X POST -d 'auth_token=user_token&location=location&category=category_id&propert=property_id&title=title&details=details' http://thespotnet.herokuapp.com/api/v1/work_orders
+
+    RESULTS: {success:'Created new work order'}
+

@@ -1,2 +1,7 @@
-%h1 WorkOrders#new
-%p Find me in app/views/work_orders/new.html.haml
+.new-workorder-page
+  .row.header-row{style:'border-bottom: 1px solid #000000; margin-bottom:20px;'}
+    .span8{style:'margin-left: 0px;'}
+      %h3{style:'margin-bottom: 0px;'} Create New Property
+    
+    .span1.pull-right
+  = render "form"
