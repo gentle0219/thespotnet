@@ -43,13 +43,12 @@
 
 
 === WorkOrders endpoint
-==== Create new work order    
+==== Create new work order
     POST: api/v1/work_orders
     Parameters
         auth_token
         location 
-        category 
-        property
+        category
         title
         details
     Returns

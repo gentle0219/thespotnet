@@ -11,7 +11,7 @@ module Endpoints
       post do
         user = User.find_by_token(params[:auth_token])
         if user.present?
-          work_order = WorkOrders.new(location:params[:location], category:params[:category], property:params[:property], title:params[:title], details:params[:details])
+          work_order = WorkOrders.new(location:params[:location], category:params[:category], title:params[:title], details:params[:details])
           if work_order.save
             {success: "Created new work order"}
           else
@@ -22,6 +22,9 @@ module Endpoints
         end
       end
 
+      get :categories do
+        Category.all_categories.map{|cat| [cat.full_name.join('->'), cat.id]}
+      end
 
     end
 
