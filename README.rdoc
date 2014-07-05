@@ -23,7 +23,7 @@
       'password'   String,      *requried
       'dev_id'     String,      device id or regid
     results:
-      {id,name,email,auth_token,role}
+      {"success":{"id":"53a911233366390002000000","name":"","email":"tester1@email.com","auth_token":"Czvz82bxs6qUzkxzzaye","role":"cleaner"}}
     EX: curl -X POST -d 'email=tester1@email.com&password=tester1234&dev_id=1234567890&platform=Android' http://thespotnet.herokuapp.com/api/v1/accounts/sign_in
 
 ==== Sign Out
