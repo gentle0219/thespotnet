@@ -22,7 +22,7 @@ class HomeController < ApplicationController
         device = resource.devices.where( dev_id:dev_id ).first        
         device = resource.devices.create(dev_id:dev_id) if device.blank?        
         user = sign_in( :user, resource )
-        user_info={id:resource.id.to_s, name:resource.name,email:resource.email,auth_token:resource.authentication_token, role:resource.role}
+        user_info={id:resource.id.to_s, name:resource.name,email:resource.email,auth_token:resource.authentication_token, role:User::MANAGER_ROLES.index(resource.role)}
         render :json => {:success => user_info}
         else
           render :json => {failed: params[:password]}, :status => 401

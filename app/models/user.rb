@@ -4,7 +4,7 @@ class User
 
   ROLES = ['cleaner', 'inspector', 'maintenance', 'guest', 'admin', 'manager']
   
-  MANAGER_ROLES = ['cleaner', 'inspector', 'maintenance', 'guest']
+  MANAGER_ROLES = ['guest', 'cleaner', 'inspector', 'maintenance']
   mount_uploader :avatar, AvatarUploader
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
