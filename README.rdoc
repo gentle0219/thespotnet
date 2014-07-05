@@ -12,7 +12,7 @@
       return user data JSON
       {user_name,email,phone,social,avatar, attend_events, created_events}
     EX
-    curl -X POST -d 'email=tester@email.com&' http://localhost:3000/api/v1/customers/vehicle
+    curl -X POST -d 'email=tester@email.com&' http://thespontnet.herokuapp.com/api/v1/customers/vehicle
 
 ==== Sign In(from app's account)
     
@@ -24,7 +24,7 @@
       'dev_id'     String,      device id or regid
     results:
       {id,name,email,auth_token,role}
-    EX: curl -X POST -d 'email=tester@email.com&password=asdfasdf&dev_id=1234567890&platform=iPad' http://localhost:3000/api/v1/accounts/sign_in
+    EX: curl -X POST -d 'email=tester1@email.com&password=tester1234&dev_id=1234567890&platform=Android' http://thespotnet.herokuapp.com/api/v1/accounts/sign_in
 
 ==== Sign Out
     POST: 'api/v1/accounts/sign_out'

@@ -16,7 +16,7 @@ class HomeController < ApplicationController
 
     resource = User.find_for_database_authentication( :email => email )
     if resource.nil?
-      render :json => {faild:'No Such User'}, :status => 401
+      render :json => {failed:'No Such User'}, :status => 401
     else      
       if resource.valid_password?( password )
         device = resource.devices.where( dev_id:dev_id ).first        
@@ -25,7 +25,7 @@ class HomeController < ApplicationController
         user_info={id:resource.id.to_s, name:resource.name,email:resource.email,auth_token:resource.authentication_token, role:resource.role}
         render :json => {:success => user_info}
         else
-          render :json => {faild: params[:password]}, :status => 401
+          render :json => {failed: params[:password]}, :status => 401
         end
       end
    end
@@ -38,7 +38,7 @@ class HomeController < ApplicationController
     end
     
     if resource.nil?
-      render :json => {faild:'No Such User'}, :status => 401
+      render :json => {failed:'No Such User'}, :status => 401
     else
       sign_out(resource)
       render :json => {:success => 'sign out'}

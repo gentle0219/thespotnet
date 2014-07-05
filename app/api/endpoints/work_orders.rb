@@ -15,10 +15,10 @@ module Endpoints
           if work_order.save
             {success: "Created new work order"}
           else
-            {faild: work_order.errors.messages.to_json}
+            {failed: work_order.errors.messages.to_json}
           end        
         else
-          {faild: 'Cannot find this token, please login again'}
+          {failed: 'Cannot find this token, please login again'}
         end
       end
 
