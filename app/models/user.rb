@@ -63,7 +63,7 @@ class User
   
   validates_presence_of :role
 
-  def find_by_token token
+  def self.find_by_token token
     where(authentication_token:token).first
   end
 

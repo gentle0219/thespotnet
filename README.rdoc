@@ -34,11 +34,11 @@
     EX: curl -X POST -d 'email=tester@email.com' http://the/api/v1/accounts/sign_out
 
 ==== Forgotten Password
-    GET: /api/v1/accounts/forgotten_password
+    GET: /api/v1/accounts/forgot_password
     parameters accepted
       'email'     String,       *required
     results:
-      {success: 'Email was sent successfully'}     
+      {success: 'Email was sent successfully'}
 
 
 
@@ -63,7 +63,7 @@
     GET: api/v1/work_orders/categories
     Parameters:
 
-    Returns
-      JSON object
+    Returns      
+      {success: JSON object}
 
     EX:http://thespotnet.herokuapp.com/api/v1/work_orders/categories
