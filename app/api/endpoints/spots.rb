@@ -35,7 +35,7 @@ module Endpoints
       get :messages do
         user = User.find_by_token(params[:auth_token])
         if user.present?
-          messages = user.unread_messages
+          messages = user.received_messages
           {success: messages.map{|m| {id:m.id.to_s, body:m.body, level:m.level_of_number}}}
         else
           {failed: 'Cannot find this token, please login again'}
