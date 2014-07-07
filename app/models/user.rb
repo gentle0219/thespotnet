@@ -1,7 +1,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
-
+  
   ROLES = ['cleaner', 'inspector', 'maintenance', 'guest', 'admin', 'manager']
   
   MANAGER_ROLES = ['guest', 'cleaner', 'inspector', 'maintenance']

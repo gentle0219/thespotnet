@@ -60,6 +60,7 @@ gem 'grape'
 gem 'xmpp4r_facebook'
 gem 'fb_graph'
 
+# gem 'mailboxer'
 gem 'mandrill_mailer'
 
 gem 'simple_captcha', :git => 'git://github.com/Azdaroth/simple-captcha.git', :branch => 'rails-4' 
