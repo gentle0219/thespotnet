@@ -25,8 +25,28 @@
           .row
             .span4
               = f.input :phone
-            .span4.offset1
-              = f.input :geo_location_id
+            .span4.offset1.location-list
+              .control-group.string.optional.location
+                %label.string.optional.control-label{for: "location"} Location
+                .controls
+                  = text_field :locations, nil, name: "locations[]", style: "width: 70%"
+                  = link_to("+", 'javascript://', :"data-target" => "#confirm_modal", :"data-toggle" => "modal", class: 'btn btn-mini')
+              - if f.object.property_locations.present?
+                - f.object.property_locations.each do |loc|
+                  .control-group.string.optional.location
+                    .controls
+                      = text_field_tag :locations, loc.location, name: "locations[]", style: "width: 70%"
+                      = link_to("x", "javascript://", class: 'btn btn-mini btn-delete-location')
+
+                
+              
+              / .control-group
+              /   .controls
+              /     = hidden_field_tag :location, "asdfasdf", name: "location[]"
+              /     = label_tag :location, "asdfasd", style: "width:80%; float:left;"
+              /     = link_to("x", "javascript://$(this).parent().parent().remove();", class: 'btn btn-mini btn-delete-location')
+
+                    
 
           .row
             .span4
@@ -99,6 +119,41 @@
           .row
             =f.input :notes, as: :text, label: false, input_html:{cols:80, rows:5, class: 'span10'}
     .form-actions
-      = f.button :submit, "Submit", class: 'btn btn-primary'
-      = link_to "Cancel", admin_properties_path, class:'btn btn-default'
+      = f.button :submit, "Submit", class: 'btn btn-primary offset2'
+      = link_to "Cancel", admin_properties_path, class: 'btn btn-default offset1'
 
+   
+
+
+
+#confirm_modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
+        %h4.modal-title Add Location
+      .modal-body.form-horizontal
+        .control-group.string.optional.property_address2
+          %label.string.optional.control-label{for: "new_location"} New Location
+          .controls            
+            = text_field_tag :new_location
+      .modal-footer
+        %button{type:"button", class:"btn btn-default", :"data-dismiss" =>"modal"} Cancel
+        = link_to "Add Location", "#", "data-dismiss" => "modal", class: "btn btn-primary", onclick:"add_loation();"        
+    / /.modal-content
+  / /.modal-dialog
+/ /.modal
+
+
+:javascript
+  function add_loation(){
+    new_loc = $("#new_location").val()
+    new_item = '<div class="control-group"><div class="controls"><input type="hidden" value="'+new_loc+'" name="locations[]" id="location"><label style="width:80%; float:left;" for="location">'+new_loc+'</label><a href="javascript://" class="btn btn-mini btn-delete-location">x</a></div></div>'
+
+    $(".location-list").append(new_item);
+  }
+
+  $(".location-list").on("click", ".btn-delete-location", function(){
+    $(this).parent().parent().remove();
+  })
+  

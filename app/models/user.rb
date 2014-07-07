@@ -64,7 +64,8 @@ class User
   has_many :properties
   has_many :work_orders
   has_many :inventories
-  
+  has_many :inventory_requests
+    
   validates_presence_of :role
   
   def get_role_list
@@ -94,6 +95,10 @@ class User
   #     manager_list
   #   end
   # end
+  def property_locations
+    p_ids = properties.map(&:id)
+    PropertyLocation.in(property_id:p_ids)
+  end
 
   def self.find_by_token token
     where(authentication_token:token).first
@@ -109,5 +114,5 @@ class User
     else
       self
     end
-  end
+  end  
 end

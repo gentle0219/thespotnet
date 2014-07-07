@@ -17,17 +17,17 @@ class Property
 
   field :notes,                   :type => String
 
-  belongs_to :geo_location
-
   belongs_to :owner
   belongs_to :user
+  has_many :property_locations
   has_many :assigns
+  has_many :inventory_requests
   
   validates_presence_of :name, :pt_id, :address1, :city, :state, :phone
   validates_uniqueness_of :pt_id
 
   def location
-    'location'
+    [address1, city, state, zip_code].join(", ")
   end
 
   def cleaner_inspector_name

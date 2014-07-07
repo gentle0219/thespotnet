@@ -22,7 +22,8 @@ class Admin::PropertiesController < ApplicationController
   end
 
   def new
-    @property = Property.new    
+    @property = Property.new
+    @property.inventory_requests.build
   end
 
   def create
@@ -33,6 +34,9 @@ class Admin::PropertiesController < ApplicationController
     @property.owner = @owner
     respond_to do |format|
       if @property.save
+        params[:locations].each do |loc|
+          @property.property_locations.create(location:loc)
+        end
         format.html { redirect_to action: :index}
         format.json { render json: @property, status: :created, location: @property}
         flash[:notice] = 'New Property was created successfully'
@@ -53,6 +57,10 @@ class Admin::PropertiesController < ApplicationController
     @owner.update_attributes(create_owner_params)    
     respond_to do |format|
       if @property.update_attributes(create_propery_params)
+        @property.property_locations.destroy_all
+        params[:locations].each do |loc|
+          @property.property_locations.create(location:loc) if loc.present?
+        end
         format.html { redirect_to action: :index}
         format.json { render json: @property, status: :created, location: @property}
         flash[:notice] = 'Property was updated successfully'

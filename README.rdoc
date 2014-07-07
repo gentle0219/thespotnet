@@ -71,18 +71,34 @@
 
 === Inventories endpoint
 
-==== Get inventories list
+==== Get Inventories list
     GET: /api/v1/inventories
     Parameters: 
       auth_token,     String
     Results: 
       {"success":[{"name":"teaet","quantity":22}]}
 
+==== Get properties location list
+    GET: /api/v1/inventories/locations
+    Parametesrs:
+      auth_token,     String
+    Results:
+      {id:, propert_id:, location:}
+
+==== Get inventory requests
+    GET: /api/v1/inventories/requests
+    Parameters: 
+      auth_token,     String
+    Results
+      {"success":[{id, ivt_id, quantity, state}]}
+      
 ==== Send inventory request
-    POST: /api/v1/inventories/send_request
+    POST: /api/v1/inventories/requests
     Parameters: 
       auth_token,     String
       ivt_id,         String
+      location,       String
+      property_id,    String
       quantity,       Integer
 
     Results:
