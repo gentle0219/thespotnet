@@ -66,8 +66,16 @@ class User
   has_many :inventories
   has_many :inventory_requests
     
+  has_many :sent_messages, class_name: "Message", foreign_key: 'sender_id'
+  has_many :received_messages, class_name: "Message", foreign_key: 'receiver_id'
+  
+
   validates_presence_of :role
   
+
+  def unread_messages
+    received_messages.where(read: false)
+  end
   def get_role_list
     role_list = User::MANAGER_ROLES
     if self.role == User::ROLES[4]          # if admin
@@ -81,6 +89,10 @@ class User
 
   def is_admin?
     self.role == User::ROLES[4]
+  end
+
+  def get_role_of_number
+    User::MANAGER_ROLES.index(role)
   end
 
   def is_manager?

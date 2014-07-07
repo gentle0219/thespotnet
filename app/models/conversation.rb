@@ -21,13 +21,22 @@ class Conversation
   def self.add_message(recipient, sender, message)
     # Find or create a conversation:
     conversation = Conversation.find_or_create_by(
-      :lookup_hash => get_lookup_hash([recipient.id, sender.id])) do |c|
+      get_lookup_hash([recipient.id, sender.id])) do |c|
         c.participants.concat [recipient, sender]
       end
     conversation.messages << message
     conversation.last_message_time = Time.now
     conversation.last_message_seen_by.delete(recipient)
     conversation.save
+  end
+
+  def self.find_or_create_by(lookup_hash)
+    cn = Conversation.where(lookup_hash:lookup_hash).first
+    if cn.present?
+      cn
+    else
+      cn = Conversation.new
+    end
   end
 
   private

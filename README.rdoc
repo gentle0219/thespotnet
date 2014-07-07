@@ -94,13 +94,51 @@
       
 ==== Send inventory request
     POST: /api/v1/inventories/requests
-    Parameters: 
-      auth_token,     String
-      ivt_id,         String
-      location,       String
-      property_id,    String
-      quantity,       Integer
-
+    Parameters:       
+      {
+        auth_token,   String
+        requests=>[
+          {
+            ivt_id: String,
+            location: String,
+            property_id: String,
+            quantity: Integer
+          },
+          {
+            ...
+          },
+          {
+            ...
+          }
+        ]
+      }
     Results:
       {success: "Created new request"}
+
+=== Spots endpoint
+==== Send message
+    POST: /api/v1/spots/messages
+    Parameters:
+      auth_token,       String
+      level,            String
+      body,             String
+      receiver_id,      String
+    Results:
+      {success: "Sent message"}
+==== Check message
+    POST: /api/v1/spots/read_message
+    Parameters:
+      auth_token,       String
+      message_id,       String
+    Results:
+      {success: "Checked message"}
+
+==== Get unread message list    
+    GET: /api/v1/spots/messages
+    Parameters:
+      auth_token,       String
+    Results:
+      {success: {id, sender_id, sender_name, sender_role, body}}
+
+
 

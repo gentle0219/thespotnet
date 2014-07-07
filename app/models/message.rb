@@ -1,12 +1,13 @@
 class Message
   include Mongoid::Document
   include Mongoid::Timestamps
+
+  LEVELS = %w[Low Medium High]
   
-  field :username,          type: String
-  field :email,             type: String
   field :subject,           type: String
   field :body,              type: String
-  
+  field :level,             type: String
+  field :read,              type: Boolean, default: false
 
   # Relationships
   belongs_to :sender, :class_name => 'User', :inverse_of => :messages_sent
@@ -20,8 +21,11 @@ class Message
   scope :in_reply_to, lambda { |message| where({:thread => message}).asc('created_at') }
  
   #validations
-  validates_presence_of :username, :email, :subject, :body, :sender, :receiver
+  validates_presence_of :subject, :body, :sender, :receiver, :level
   validates_length_of :subject, :within => 10..70
   validates_length_of :body, :within => 10..1000
  
+  def level_of_number
+    Message::LEVELS.index(level)
+  end
 end

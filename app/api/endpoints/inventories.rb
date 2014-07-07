@@ -29,12 +29,11 @@ module Endpoints
       post :requests do
         user = User.find_by_token(params[:auth_token])
         if user.present?
-          request = InventoryRequest.new(user_id:user.id, ivt_id:params[:ivt_id], quantity:params[:quantity], location:params[:location], property_id:params[:property_id], sent_date:Time.now)
-          if request.save
-            {success: "Created new request"}
-          else
-            {failed: request.errors.messages.to_json}
+          params[:requests].each do |request|
+            request = InventoryRequest.new(user_id:user.id, ivt_id:request[:ivt_id], quantity:request[:quantity], location:request[:location], property_id:request[:property_id], sent_date:Time.now)
+            request.save
           end
+          {success: "Created new request"}
         else
           {failed: 'Cannot find this token, please login again'}
         end
