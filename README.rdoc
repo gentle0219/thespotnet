@@ -23,7 +23,7 @@
       'password'   String,      *requried
       'dev_id'     String,      device id or regid
     results:
-      {"success":{"id":"53a911233366390002000000","name":"","email":"tester1@email.com","auth_token":"Czvz82bxs6qUzkxzzaye","role":"cleaner"}}
+      {"success":{"id":"53a911233366390002000000","name":"","email":"tester1@email.com","auth_token":"Czvz82bxs6qUzkxzzaye","role":"cleaner", messages=>{id, body, level}}}
     EX: curl -X POST -d 'email=tester1@email.com&password=tester1234&dev_id=1234567890&platform=Android' http://thespotnet.herokuapp.com/api/v1/accounts/sign_in
 
 ==== Sign Out
@@ -133,12 +133,12 @@
     Results:
       {success: "Checked message"}
 
-==== Get unread message list    
+==== Get all received message list    
     GET: /api/v1/spots/messages
     Parameters:
       auth_token,       String
     Results:
-      {success: {id, sender_id, sender_name, sender_role, body}}
+      {success: {id, body, level}}
 
 
 

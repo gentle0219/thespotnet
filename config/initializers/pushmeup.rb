@@ -10,3 +10,13 @@ APNS.pem  = "#{Rails.root}/config/apns_dev.pem"
 
 APNS.pass = '111111'
 # Just in case your pem need a password
+
+
+GCM.host = 'https://android.googleapis.com/gcm/send'
+# https://android.googleapis.com/gcm/send is default
+
+GCM.format = :json
+# :json is default and only available at the moment
+
+GCM.key = "123abc456def"
+# this is the apiKey obtained from here https://code.google.com/apis/console/
