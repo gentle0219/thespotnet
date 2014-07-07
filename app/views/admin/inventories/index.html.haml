@@ -11,7 +11,7 @@
         %i.icon-remove-sign{:onclick=>'javascript:$("#inventory_search_form .search-query").val(""); $("#inventory_search_form").submit()', style:'margin-left: -20px;margin-top: -6px;position: relative;'}
       
   .span2{style:'margin-top:20px;'}
-    = link_to "New Inventory", new_admin_inventory_path, class: 'btn btn-primary pull-right'
+    = link_to "New Inventory", new_admin_inventory_path, class: 'btn btn-primary pull-right', :"data-no-turbolink"=>true
 .row.customers-contents
   %table.table.table-striped.table-hover.table-bordered
     %thead
