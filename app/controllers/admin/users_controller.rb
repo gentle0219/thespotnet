@@ -3,10 +3,11 @@ class Admin::UsersController < ApplicationController
   before_filter :authenticate_admin
 
   def index
+    user_list = current_user.is_admin? ? User.all : current_user.members
     if params[:search].present?
-      @users = current_user.members.search(params[:search]).paginate(page: params[:page], :per_page => 10)
+      @users = user_list.search(params[:search]).paginate(page: params[:page], :per_page => 10)
     else
-      @users = current_user.members.all.paginate(page: params[:page], :per_page => 10)  
+      @users = user_list.all.paginate(page: params[:page], :per_page => 10)  
     end
   	
   	respond_to do |format|
@@ -19,7 +20,13 @@ class Admin::UsersController < ApplicationController
     @user = User.new
   end
   def create
-    @user = current_user.members.build(params[:user].permit(:name, :email, :password, :password_confirmation, :role))
+    if current_user.role != User::ROLES[4] and params[:user][:role] == User::ROLES[5]
+      flash[:error] = "You can't create this role! please check the role again"
+      format.html { render action: "new" }
+    else
+      @user = current_user.members.build(params[:user].permit(:name, :email, :password, :password_confirmation, :role))
+    end
+
     respond_to do |format|
       if @user.save
         format.html { redirect_to action: :index }        
@@ -41,7 +48,13 @@ class Admin::UsersController < ApplicationController
   # @wireframe    
   def update
     @user = User.find(params[:id])
-    @user.assign_attributes(params[:user].permit(:name, :email, :password, :password_confirmation, :role))
+    if current_user.role != User::ROLES[4] and params[:user][:role] == User::ROLES[5]
+      flash[:error] = "You can't set this role! please check the role again"
+      format.html { render action: "new" }
+    else
+      @user.assign_attributes(params[:user].permit(:name, :email, :password, :password_confirmation, :role))
+    end
+    
     respond_to do |format|
       if @user.save
         format.html { redirect_to action: :index }        

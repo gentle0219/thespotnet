@@ -45,8 +45,8 @@
           .row
             =f.input :notes, as: :text, label: false, input_html:{cols:80, rows:5, class: 'span10'}
     .form-actions
-      = f.button :submit, "Submit", class: 'btn btn-primary'
-      = link_to "Cancel", admin_properties_path, class:'btn btn-default'
+      = f.button :submit, "Submit", class: 'btn btn-primary offset2'
+      = link_to "Cancel", admin_inventories_path, class: 'btn btn-default offset1'
 
 
 :javascript

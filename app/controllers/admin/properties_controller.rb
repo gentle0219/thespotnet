@@ -2,10 +2,17 @@ class Admin::PropertiesController < ApplicationController
   layout 'admin'
   before_filter :authenticate_admin
   def index
+    # if params[:search].present?
+    #   @properties = Property.search(params[:search]).paginate(page: params[:page], :per_page => 10)
+    # else
+    #   @properties = Property.all.paginate(page: params[:page], :per_page => 10)  
+    # end
+
+    @properties = current_user.is_admin? ? Property.all : current_user.properties
     if params[:search].present?
-      @properties = Property.search(params[:search]).paginate(page: params[:page], :per_page => 10)
+      @properties = @properties.search(params[:search]).paginate(page: params[:page], :per_page => 10)
     else
-      @properties = Property.all.paginate(page: params[:page], :per_page => 10)  
+      @properties = @properties.paginate(page: params[:page], :per_page => 10)
     end
     
     respond_to do |format|
@@ -53,6 +60,14 @@ class Admin::PropertiesController < ApplicationController
         format.html { render action: :new }
         format.json { render json: @property.errors, status: :unprocessable_entity }
       end      
+    end
+  end
+
+  def destroy
+    @property = Property.find(params[:id])
+    if @property.destroy
+      redirect_to action: :index
+      flash[:notice] = 'Property was deleted'
     end
   end
 

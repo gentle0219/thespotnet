@@ -46,12 +46,12 @@
 ==== Create new work order
     POST: api/v1/work_orders
     Parameters
-        auth_token    String
-        location      String
-        category      category_id
-        level         String
-        title         String
-        details       String
+        auth_token,    String
+        location,      String
+        category,      category_id
+        level,         String
+        title,         String
+        details,       String
     Returns
       Success String
 
@@ -70,4 +70,21 @@
 
 
 === Inventories endpoint
+
 ==== Get inventories list
+    GET: /api/v1/inventories
+    Parameters: 
+      auth_token,     String
+    Results: 
+      {"success":[{"name":"teaet","quantity":22}]}
+
+==== Send inventory request
+    POST: /api/v1/inventories/send_request
+    Parameters: 
+      auth_token,     String
+      ivt_id,         String
+      quantity,       Integer
+
+    Results:
+      {success: "Created new request"}
+

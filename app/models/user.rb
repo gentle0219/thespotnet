@@ -56,12 +56,44 @@ class User
   belongs_to :manager, :class_name => "User"
   has_many :members, :class_name => "User", :foreign_key=>"manager_id", :dependent => :destroy
   
+  # belongs_to :admin, :class_name => "User"
+  # has_many :managers, :class_name => "User", :foreign_key=>"admin_id", :dependent => :destroy
+
+
   has_many :devices
   has_many :properties
   has_many :work_orders
   has_many :inventories
   
   validates_presence_of :role
+  
+  def get_role_list
+    role_list = User::MANAGER_ROLES
+    if self.role == User::ROLES[4]          # if admin
+      role_list << 'manager'
+    elsif self.role == User::ROLES[5]       # if manager
+      role_list
+    else
+      ["",""]
+    end
+  end
+
+  def is_admin?
+    self.role == User::ROLES[4]
+  end
+
+  def is_manager?
+    self.role == User::ROLES[5]
+  end
+  # def all_user_list
+  #   manager_list = []
+  #   if self.role == User::ROLES[4]          # if admin
+  #     members = self.members
+
+  #   else
+  #     manager_list
+  #   end
+  # end
 
   def self.find_by_token token
     where(authentication_token:token).first

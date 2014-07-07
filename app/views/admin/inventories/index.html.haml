@@ -5,10 +5,10 @@
     = form_tag admin_inventories_path, method: 'get', :class=>'form-search', :id=>'inventory_search_form'
     .input.input-prepend{style:'width:80%;'}
       %button{type:'submit',class:'btn'} 
-        %i.icon-search{:onclick=>'javascript:$("#user_search_form").submit()',style:'margin-top:2px;'}
+        %i.icon-search{:onclick=>'javascript:$("#inventory_search_form").submit()',style:'margin-top:2px;'}
       = text_field_tag 'search', params[:search], :class=>'span3 search-query', style:'padding-left:5px;padding-right:5px;width:100%;'
       %span.fornav-end
-        %i.icon-remove-sign{:onclick=>'javascript:$("#user_search_form .search-query").val(""); $("#user_search_form").submit()', style:'margin-left: -20px;margin-top: -6px;position: relative;'}
+        %i.icon-remove-sign{:onclick=>'javascript:$("#inventory_search_form .search-query").val(""); $("#inventory_search_form").submit()', style:'margin-left: -20px;margin-top: -6px;position: relative;'}
       
   .span2{style:'margin-top:20px;'}
     = link_to "New Inventory", new_admin_inventory_path, class: 'btn btn-primary pull-right'
@@ -35,12 +35,10 @@
           %td= inventory.re_order_point
           %td= inventory.purchase_date.strftime("%m/%d/%Y")
           %td
-            = link_to(edit_admin_property_path(inventory), class: 'btn btn-mini', :"data-no-turbolink"=>true) do
+            = link_to(edit_admin_inventory_path(inventory), class: 'btn btn-mini', :"data-no-turbolink"=>true) do
               %i.icon-pencil
 
-            = link_to(admin_property_path(inventory), class: 'btn btn-mini', method: :delete, data: {confirm: "Are you sure"}) do
+            = link_to(admin_inventory_path(inventory), class: 'btn btn-mini', method: :delete, data: {confirm: "Are you sure"}) do
               %i.icon-trash
     %tfoot
-      %tr
-        %td{colspan: 12}
-          = will_paginate @inventories
+      
