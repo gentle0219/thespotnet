@@ -21,4 +21,16 @@ class Inventory
   belongs_to :user
   belongs_to :property
 
+  validates_presence_of :ivt_id, :name, :location, :cost, :price_type
+
+  def selling_price
+    case price_type
+    when Inventory::PRICING_TYPES[0]
+      (cost / 100.0) + 100
+    when Inventory::PRICING_TYPES[1]
+      cost + 15
+    when Inventory::PRICING_TYPES[2]
+      cost
+    end
+  end
 end

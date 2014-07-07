@@ -64,7 +64,7 @@ class UserMailer < ActionMailer::Base
   def unlock_instructions(record, set, opts={})
   end
 
-  def forgotten_password(user)
+  def forgot_password(user)
     @user = user
     raw, enc = Devise.token_generator.generate(user.class, :reset_password_token)
     user.reset_password_token   = enc

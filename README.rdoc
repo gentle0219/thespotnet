@@ -38,7 +38,7 @@
     parameters accepted
       'email'     String,       *required
     results:
-      email will be sent and return success string 
+      {success: 'Email was sent successfully'}     
 
 
 

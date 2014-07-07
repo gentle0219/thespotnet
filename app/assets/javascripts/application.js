@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require parsley
 //= require turbolinks
 //= require bootstrap
 //= require bootstrap-datepicker

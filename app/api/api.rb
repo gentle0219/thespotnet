@@ -21,4 +21,5 @@ class API < Grape::API
   mount Endpoints::Accounts
   mount Endpoints::Events
   mount Endpoints::WorkOrders
+  mount Endpoints::Inventories
 end
