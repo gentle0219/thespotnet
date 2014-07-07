@@ -13,7 +13,7 @@ module Endpoints
         if user.present?
           work_order = user.work_orders.build(location:params[:location], category:params[:category], title:params[:title], details:params[:details], level:params[:level])
           if work_order.save
-            {success: "Created new work order"}
+            {success: {id:work_order.id.to_s, title:work_order.title}}
           else
             {failed: work_order.errors.messages.to_json}
           end        

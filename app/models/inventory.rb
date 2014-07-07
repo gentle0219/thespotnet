@@ -22,7 +22,7 @@ class Inventory
   belongs_to :property
 
   validates_presence_of :ivt_id, :name, :location, :cost, :price_type
-
+  
   def selling_price
     case price_type
     when Inventory::PRICING_TYPES[0]

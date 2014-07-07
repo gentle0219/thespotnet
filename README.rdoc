@@ -67,3 +67,7 @@
       {success: JSON object}
 
     EX:http://thespotnet.herokuapp.com/api/v1/work_orders/categories
+
+
+=== Inventories endpoint
+==== Get inventories list
