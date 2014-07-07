@@ -91,7 +91,7 @@ class User
     self.role == User::ROLES[4]
   end
 
-  def get_role_of_number
+  def role_of_number
     User::MANAGER_ROLES.index(role)
   end
 

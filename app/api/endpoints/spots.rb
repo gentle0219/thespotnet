@@ -42,6 +42,17 @@ module Endpoints
         end
       end
 
+      get :staff_list do
+        user = User.find_by_token(params[:auth_token])
+        if user.present?
+          staffs = user.manager.members.reject{|u| u==user}
+          {success: staffs.map{|st| {id:st.id.to_s, name:st.name, role:st.role_of_number}}}
+        else
+          {failed: 'Cannot find this token, please login again'}
+        end
+      end
+
+
     end
   end
 end

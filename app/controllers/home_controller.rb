@@ -23,7 +23,7 @@ class HomeController < ApplicationController
         device = resource.devices.create(dev_id:dev_id) if device.blank?        
         user = sign_in( :user, resource )
         messages = user.unread_messages.map{|m| {id:m.id.to_s, body:m.body, level:m.level_of_number}}
-        user_info={id:resource.id.to_s, name:resource.name,email:resource.email,auth_token:resource.authentication_token, role:resource.get_role_of_number, messages:messages}
+        user_info={id:resource.id.to_s, name:resource.name,email:resource.email,auth_token:resource.authentication_token, role:resource.role_of_number, messages:messages}
         render :json => {:success => user_info}
         else
           render :json => {failed: params[:password]}, :status => 401
