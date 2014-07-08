@@ -23,4 +23,5 @@ class API < Grape::API
   mount Endpoints::WorkOrders
   mount Endpoints::Inventories
   mount Endpoints::Spots
+  mount Endpoints::LostFounds
 end

@@ -18,25 +18,22 @@ module Endpoints
       get :requests do
         user = User.find_by_token(params[:auth_token])
         if user.present?
-          requests = user.inventory_requests
-          { success: requests.map{|rq| {id:rq.id.to_s, ivt_id:rq.ivt_id, quantity:rq.quantity, state:rq.state}} }
+          requests = user.manager.inventory_requests
+          { success: requests.map{|rq| {id:rq.id.to_s, ivt_id:rq.ivt_id, quantity:rq.quantity, accepted:rq.state}} }
         else
           {failed: 'Cannot find this token, please login again'}
         end
       end
 
       desc "Send inventory request"
-      post :requests do
+      post :requests do        
         user = User.find_by_token(params[:auth_token])
-        if user.present?
-          
-          p "Requests ====>"
-          p params[:requests]
-          p "End ====>"
-          
-          params[:requests].each do |request|
-            request = InventoryRequest.new(user_id:user.id, ivt_id:request[:ivt_id], quantity:request[:quantity], location:request[:location], property_id:request[:property_id], sent_date:Time.now)
-            request.save
+        if user.present? 
+          requests = params[:requests].split(";")
+          requests.each do |request|
+            item = request.split(",")
+            r = InventoryRequest.new(user_id:user.id, ivt_id:item[0], location:item[1], property_id:item[2], quantity:item[3], sent_date:Time.now)
+            r.save
           end
           {success: "Created new request"}
         else
@@ -56,6 +53,19 @@ module Endpoints
         end
       end
 
+      post :accept do
+        user = User.find_by_token(params[:auth_token])
+        if user.present?
+          request_ids = params[:request_ids].split(",")
+          requests = InventoryRequest.in(id:request_ids)
+          requests.each do |r|
+            r.update_attributes(accepted:true, accept_date:Time.now)
+          end
+          {success: "Accepted requests"}
+        else
+          {failed: 'Cannot find this token, please login again'}
+        end
+      end
     end    
   end
 end

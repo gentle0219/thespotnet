@@ -11,6 +11,14 @@ module Endpoints
           subject = params[:level] + "Message"
           message = Message.new(subject:subject, body:params[:body], sender:user, receiver:receiver, level:params[:level])
           #Conversation::add_message(receiver, user, message)
+          destination = [receiver.device_id]
+          data = {key: params[:body]}
+          notif = GCM.send_notification( destination, data )
+          
+          p ">>>>--------------------------------->"
+          p notif
+          p ">>>>--------------------------------->"
+
           if message.save
             {success: "Your message has been sent successfully."}
           else
@@ -24,7 +32,7 @@ module Endpoints
       post :read_message do
         user = User.find_by_token(params[:auth_token])
         if user.present?
-          messages = Message.find(params[message_id])
+          message = Message.find(params[:message_id])
           message.update_attribute(:read, true)
           {success: "Checked message"}
         else
@@ -66,7 +74,6 @@ module Endpoints
           {failed: 'Cannot find this token, please login again'}
         end
       end
-
 
     end
   end

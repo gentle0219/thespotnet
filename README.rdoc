@@ -114,6 +114,13 @@
       }
     Results:
       {success: "Created new request"}
+==== Accept request
+    POST: /api/v1/inventories/accept
+    Parameters:
+      auth_token,        String
+      request_ids,       String
+    Results:
+      {success: "Accepted requests"}
 
 === Spots endpoint
 ==== Send message
@@ -139,6 +146,7 @@
       auth_token,       String
     Results:
       {success: {id, body, level}}
+
 ==== Delete message list    
     DELETE: /api/v1/spots/messages
     Parameters:
@@ -155,6 +163,20 @@
       {"success":[{"id":"53ab84d2436875af35060000","name":"cleaner2","role":1}]}
 
 
+=== Lost Found
+==== Create new item
+    POST: /api/v1/lost_founds/
+    Parameters:
+      auth_token,       String
+      item_name,        String
+      description,      String
+    Results:
+      {success=>{id, item_name, description}}
 
-
+==== Get item list
+  GET: /api/v1/lost_founds/
+    Parameters:
+      auth_token,       String
+    Results:
+      {success=>[{id, item_name, description}, ...]}
 

@@ -65,13 +65,18 @@ class User
   has_many :work_orders
   has_many :inventories
   has_many :inventory_requests
-    
+  has_many :lost_founds
+
+
   has_many :sent_messages, class_name: "Message", foreign_key: 'sender_id'
   has_many :received_messages, class_name: "Message", foreign_key: 'receiver_id'
   
 
   validates_presence_of :role
   
+  def device_id
+    devices.first.dev_id if devices.present?
+  end
 
   def unread_messages
     received_messages.where(read: false)
@@ -107,6 +112,16 @@ class User
   #     manager_list
   #   end
   # end
+  
+  def inventory_requests
+    if is_manager?
+      user_ids = members.map(&:id)
+      InventoryRequest.in(user_id:user_ids)
+    else
+      []
+    end
+  end
+
   def property_locations
     p_ids = properties.map(&:id)
     PropertyLocation.in(property_id:p_ids)
