@@ -3,7 +3,7 @@ class WorkOrder
   include Mongoid::Timestamps
 
   STATUS=%w[OPEN CLOSED IMPORTANT]
-  LEVELS = %w[Priority Low]
+  LEVELS = %w[Priority Low Medium High]
   field :title,                     :type => String
   field :details,                   :type => String
   field :location,                  :type => String

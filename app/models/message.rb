@@ -2,7 +2,7 @@ class Message
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  LEVELS = %w[Low Medium High]
+  LEVELS = %w[Priority Low Medium High]
   
   field :subject,           type: String
   field :body,              type: String

@@ -29,6 +29,11 @@ module Endpoints
       post :requests do
         user = User.find_by_token(params[:auth_token])
         if user.present?
+          
+          p "Requests ====>"
+          p params[:requests]
+          p "End ====>"
+          
           params[:requests].each do |request|
             request = InventoryRequest.new(user_id:user.id, ivt_id:request[:ivt_id], quantity:request[:quantity], location:request[:location], property_id:request[:property_id], sent_date:Time.now)
             request.save

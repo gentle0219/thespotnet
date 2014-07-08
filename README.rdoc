@@ -139,6 +139,22 @@
       auth_token,       String
     Results:
       {success: {id, body, level}}
+==== Delete message list    
+    DELETE: /api/v1/spots/messages
+    Parameters:
+      auth_token,       String
+      message_ids,      String
+    Results:
+      {success: "This messages has been deleted"}
+
+==== Get Staff list    
+    GET: /api/v1/spots/staff_list
+    Parameters:
+      auth_token,       String
+    Results:
+      {"success":[{"id":"53ab84d2436875af35060000","name":"cleaner2","role":1}]}
+
+
 
 
 
