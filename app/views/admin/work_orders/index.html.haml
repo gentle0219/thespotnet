@@ -24,9 +24,9 @@
         %tr
           %td= wo.created_at.strftime("%m/%d/%Y %H:%M:%S")
           %td= wo.id
-          %td 
-          %td= wo.level
-          %td= wo.user_name
+          %td= wo.unit_id 
+          %td= wo.unit_name
+          %td= wo.vendor_name
           %td= wo.details
           %td
             = link_to(edit_admin_work_order_path(wo), class: 'btn btn-mini', :"data-no-turbolink"=>true) do

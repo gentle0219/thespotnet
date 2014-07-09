@@ -6,6 +6,7 @@ TheSpotNet::Application.routes.draw do
     resources :properties
     resources :work_orders
     resources :inventories
+    resources :lost_founds
 
     #resources :cleaners
     get 'cleaners_list'                   => 'cleaners#cleaners_list'    

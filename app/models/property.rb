@@ -22,7 +22,8 @@ class Property
   has_many :property_locations
   has_many :assigns
   has_many :inventory_requests
-  
+  has_many :work_orders
+
   validates_presence_of :name, :pt_id, :address1, :city, :state, :phone
   validates_uniqueness_of :pt_id
 

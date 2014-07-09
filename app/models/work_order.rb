@@ -11,11 +11,38 @@ class WorkOrder
   field :level,                     :type => String
   field :opend,                     :type => Boolean, default: true
 
+  belongs_to :maintenance,  class_name: 'User'
+
   belongs_to :category
   belongs_to :member,       class_name: 'User'
   belongs_to :user
+  belongs_to :property
 
-  validates_presence_of :location, :title, :details
+  validates_presence_of :title, :details, :property
+
+  def unit_id
+    if property.present?
+      property.pt_id
+    else
+      ''
+    end
+  end
+
+  def unit_name
+    if property.present?
+      property.name
+    else
+      ''
+    end
+  end
+
+  def vendor_name
+    if maintenance.present?
+      maintenance.name
+    else
+      ''
+    end    
+  end
 
   def user_name
     user.name if user.present?

@@ -7,9 +7,9 @@
           %legend.group-border General Info
           .row
             .span4
-              = f.input :location, required: true
+              = f.input :property, :collection => Property.all.collect{|prt| [prt.name, prt.id]}, required: true
             .span4
-              = f.input :category, :collection => Category.all_categories.collect{|cat| [cat.full_name.join('->'), cat.id]}
+              = f.input :category, :collection => Category.all_categories.collect{|cat| [cat.full_name.join('->'), cat.id]}, required: true
             .span4
               = f.input :level, :collection => WorkOrder::LEVELS.map{|level| [level, level.downcase]}
           .row
@@ -18,6 +18,11 @@
           .row
             .span12
               = f.input :details, as: :text, required: true, input_html:{class: 'span9', style:'max-width: 894px;'}
+        %fieldset.group-border
+          %legend.group-border Assigned To          
+          .row
+            .span4
+              = f.input :maintenance, :collection => User::maintenances.collect{|mc| [mc.name, mc.id]}, required: true, label: 'Assigned To'
       .form-actions
         .row
           .span2.offset3

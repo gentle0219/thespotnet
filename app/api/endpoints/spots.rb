@@ -12,7 +12,7 @@ module Endpoints
           message = Message.new(subject:subject, body:params[:body], sender:user, receiver:receiver, level:params[:level])
           #Conversation::add_message(receiver, user, message)
           destination = [receiver.device_id]
-          data = {key:"#{sender.name} sent you message '#{params[:body]}'"}
+          data = {key:"#{user.name} sent you message '#{params[:body]}'"}
           notif = GCM.send_notification( destination, data )
           
           # p ">>>>--------------------------------->"

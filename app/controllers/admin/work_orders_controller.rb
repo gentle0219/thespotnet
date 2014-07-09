@@ -26,7 +26,7 @@ class Admin::WorkOrdersController < ApplicationController
   end
 
   def create
-    @work_order = current_user.work_orders.build(params[:work_order].permit(:location, :category, :level, :title, :details))
+    @work_order = current_user.work_orders.build(params[:work_order].permit(:property, :category, :level, :title, :details, :maintenance))
     respond_to do |format|
       if @work_order.save
         format.html { redirect_to action: :index}
@@ -44,7 +44,7 @@ class Admin::WorkOrdersController < ApplicationController
   end
   def update
     @work_order = WorkOrder.find(params[:id])
-    @work_order.assign_atrributes(params[:work_order].permit(:location, :category, :level, :title, :details))
+    @work_order.assign_attributes(params[:work_order].permit(:property, :category, :level, :title, :details, :maintenance))
     respond_to do |format|
       if @work_order.save
         format.html { redirect_to action: :index}
