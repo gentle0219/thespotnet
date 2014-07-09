@@ -16,6 +16,10 @@
 //= require turbolinks
 //= require bootstrap
 //= require bootstrap-datepicker
+
+//= require tinymce
+//= require tinymce-jquery 
+
 //= require_tree .
 
 
@@ -24,7 +28,10 @@ $(document).ready(function(){
     format: "mm/dd/yyyy"
   });
 
-  // Sortable
-  
-  // End Sortable
+  tinyMCE.init({
+    theme : "modern",
+    mode : "textareas",
+    plugins: "image",
+    selector: 'textarea.tinymce'
+  })
 });

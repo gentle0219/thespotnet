@@ -1,0 +1,7 @@
+theme: "modern"
+toolbar1: bold italic | link uploadimage | undo redo | fontselect | forecolor | code | 
+plugins:
+  - link
+  - uploadimage
+  - textcolor
+  - code

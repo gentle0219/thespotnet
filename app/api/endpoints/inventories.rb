@@ -19,7 +19,7 @@ module Endpoints
         user = User.find_by_token(params[:auth_token])
         if user.present?
           requests = user.manager.inventory_requests
-          { success: requests.map{|rq| {id:rq.id.to_s, ivt_id:rq.ivt_id, quantity:rq.quantity, accepted:rq.state}} }
+          { success: requests.map{|rq| {id:rq.id.to_s, ivt_id:rq.ivt_id, quantity:rq.quantity, accepted:rq.accepted}} }
         else
           {failed: 'Cannot find this token, please login again'}
         end

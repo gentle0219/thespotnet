@@ -90,7 +90,7 @@
     Parameters: 
       auth_token,     String
     Results
-      {"success":[{id, ivt_id, quantity, state}]}
+      {"success":[{id, ivt_id, quantity, accepted}]}
       
 ==== Send inventory request
     POST: /api/v1/inventories/requests

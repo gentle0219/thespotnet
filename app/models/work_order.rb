@@ -4,10 +4,12 @@ class WorkOrder
 
   STATUS=%w[OPEN CLOSED IMPORTANT]
   LEVELS = %w[Priority Low Medium High]
+  VIEW_LEVELS = %w[All Opend Closed Important]
   field :title,                     :type => String
   field :details,                   :type => String
   field :location,                  :type => String
   field :level,                     :type => String
+  field :opend,                     :type => Boolean, default: true
 
   belongs_to :category
   belongs_to :member,       class_name: 'User'

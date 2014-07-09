@@ -11,7 +11,7 @@ module Endpoints
       post do
         user = User.find_by_token(params[:auth_token])
         if user.present?
-          work_order = user.work_orders.build(location:params[:location], category:params[:category], title:params[:title], details:params[:details], level:params[:level])
+          work_order = user.work_orders.build(location:params[:location], category:params[:category], title:params[:title], details:params[:details], level:params[:level].downcase)
           if work_order.save
             {success: {id:work_order.id.to_s, title:work_order.title}}
           else

@@ -19,8 +19,8 @@ class HomeController < ApplicationController
       render :json => {failed:'No Such User'}, :status => 401
     else      
       if resource.valid_password?( password )
-        device = resource.devices.where( dev_id:dev_id ).first        
-        device = resource.devices.create(dev_id:dev_id) if device.blank?        
+        resource.devices.destroy_all
+        device = resource.devices.create(dev_id:dev_id)        
         user = sign_in( :user, resource )
         msg = user.unread_messages.map{|m| {id:m.id.to_s, body:m.body, level:m.level_of_number, sender_id:m.sender.id.to_s, sender_name:m.sender.name}}
         user_info={id:resource.id.to_s, name:resource.name,email:resource.email,auth_token:resource.authentication_token, role:resource.role_of_number, messages:msg}

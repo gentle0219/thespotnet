@@ -26,8 +26,9 @@ gem 'bootstrap_form'
 #gem 'will_paginate-bootstrap'
 gem 'will_paginate_mongoid'
 
-gem 'lazy_high_charts'
-gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'
+# gem 'lazy_high_charts'
+gem 'tinymce-rails'
+# gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'
 
 gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
 gem 'delayed_job_mongoid', :github => 'shkbahmad/delayed_job_mongoid'

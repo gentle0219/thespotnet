@@ -12,12 +12,12 @@ module Endpoints
           message = Message.new(subject:subject, body:params[:body], sender:user, receiver:receiver, level:params[:level])
           #Conversation::add_message(receiver, user, message)
           destination = [receiver.device_id]
-          data = {key: params[:body]}
+          data = {key:"#{sender.name} sent you message '#{params[:body]}'"}
           notif = GCM.send_notification( destination, data )
           
-          p ">>>>--------------------------------->"
-          p notif
-          p ">>>>--------------------------------->"
+          # p ">>>>--------------------------------->"
+          # p notif
+          # p ">>>>--------------------------------->"
 
           if message.save
             {success: "Your message has been sent successfully."}
@@ -43,7 +43,7 @@ module Endpoints
       get :messages do
         user = User.find_by_token(params[:auth_token])
         if user.present?
-          messages = user.received_messages
+          messages = user.received_messages.order_by('created_at DESC')
           {success: messages.map{|m| {id:m.id.to_s, body:m.body, level:m.level_of_number, sender_id:m.sender.id.to_s, sender_name:m.sender.name}}}
         else
           {failed: 'Cannot find this token, please login again'}

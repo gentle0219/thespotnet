@@ -79,7 +79,7 @@ class User
   end
 
   def unread_messages
-    received_messages.where(read: false)
+    received_messages.where(read: false).order_by('created_at DESC')
   end
   def get_role_list
     role_list = User::MANAGER_ROLES

@@ -2,7 +2,18 @@ class Admin::WorkOrdersController < ApplicationController
   layout 'admin'
   before_filter :authenticate_admin
   def index
-    @work_orders = WorkOrder.all.paginate(page: params[:page], per_page: 15)
+    level = params[:level].present? ? params[:level] : "0"
+    case level
+    when "0"
+      @work_orders = WorkOrder.all.paginate(page: params[:page], per_page: 15)
+    when "1"
+      @work_orders = WorkOrder.where(opend:true).paginate(page: params[:page], per_page: 15)
+    when "2"
+      @work_orders = WorkOrder.where(opend:false).paginate(page: params[:page], per_page: 15)
+    when "3"      
+      @work_orders = WorkOrder.where(lebel:"high").paginate(page: params[:page], per_page: 15)
+    end
+
     # if current_user.is_admin?
     #   @work_orders = WorkOrder.all.paginate(page: params[:page], per_page: 15)
     # else

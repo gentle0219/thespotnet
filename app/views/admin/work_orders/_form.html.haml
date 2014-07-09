@@ -11,7 +11,7 @@
             .span4
               = f.input :category, :collection => Category.all_categories.collect{|cat| [cat.full_name.join('->'), cat.id]}
             .span4
-              = f.input :level, :collection => WorkOrder::LEVELS.map{|level| [level, level]}
+              = f.input :level, :collection => WorkOrder::LEVELS.map{|level| [level, level.downcase]}
           .row
             .span12
               = f.input :title, required: true
