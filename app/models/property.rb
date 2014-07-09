@@ -15,6 +15,8 @@ class Property
   field :full_bathrooms,          :type => Integer
   field :half_bathrooms,          :type => Integer
 
+  field :device_id,               :type => String
+
   field :notes,                   :type => String
 
   belongs_to :owner
