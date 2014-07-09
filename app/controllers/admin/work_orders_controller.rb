@@ -51,7 +51,7 @@ class Admin::WorkOrdersController < ApplicationController
         format.json { render json: @work_order, status: :created, location: @work_order}
         flash[:notice] = 'New Work Order was updated successfully'
       else
-        format.html { render action: :new }
+        format.html { render action: :update }
         format.json { render json: @work_order.errors, status: :unprocessable_entity }
       end      
     end

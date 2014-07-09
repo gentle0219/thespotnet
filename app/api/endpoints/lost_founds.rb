@@ -11,11 +11,17 @@ module Endpoints
       post do
         user = User.find_by_token(params[:auth_token])
         if user.present?
-          lost_found = LostFound.new(item_name:params[:item_name], description:params[:description], user_id:user.id)
-          if lost_found.save
-            {success: {id:lost_found.id.to_s, item_name:lost_found.item_name, description:lost_found.description}}
+          if params[:item_id].present?
+            found = LostFound.find(params[:item_id])
+            found.assign_attributes(item_name:params[:item_name], description:params[:description], user_id:user.id, property_id:params[:property_id])
           else
-            {failed: "Please check again"}
+            found = LostFound.new(item_name:params[:item_name], description:params[:description], user_id:user.id, property_id:params[:property_id])
+          end
+          found.lost = false          
+          if found.save
+            {success: "Sent this item to property manager"}
+          else
+            {failed: found.errors.messages.to_json}
           end
         else
           {failed: 'Cannot find this token, please login again'}
@@ -25,9 +31,10 @@ module Endpoints
       desc "Get LostFound item list"
       get do
         user = User.find_by_token(params[:auth_token])
+        property = Property.find(params[:property_id])
         if user.present?
-          lost_founds = user.lost_founds
-          {success: lost_founds.map{|lf| {id:lf.id.to_s, item_name:lf.item_name,description:lf.description}}}          
+          lost_founds = property.lost_founds.lost_items
+          {success: lost_founds.map{|lf| {id:lf.id.to_s, item_name:lf.item_name,description:lf.description}}}
         else
           {failed: 'Cannot find this token, please login again'}
         end

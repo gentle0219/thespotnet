@@ -15,16 +15,24 @@ class Admin::CleanersController < ApplicationController
     @properties = current_user.properties.paginate(page: params[:page], :per_page => 15)
   end
   def update_cleaners
-    params[:cleaners].each do |key, val|
-      assign = Assign.where(property_id:key).first
-      if assign.present?
-        assign.update_attribute(:member_id, val)
+    @assign = Assign.new(property_id:params[:cleaners][:property], member_id:params[:cleaners][:cleaner])
+    respond_to do |format|
+      if @assign.save
+        format.html { redirect_to action: :cleaners_list }        
+        format.json { render json: @assign, status: :created, location: @assign }
+        flash[:notice] = "Assigned cleaners"
       else
-        Assign.create(property_id:key, member_id:val)
-      end      
-    end
+        format.html { render action: :cleaners_list }
+        format.json { render json: @assign.errors, status: :unprocessable_entity }
+      end
+    end 
+    
+  end
+
+  def delete_cleaner
+    assign = Assign.find(params[:id])
+    assign.destroy
     redirect_to action: :cleaners_list
-    flash[:notice] = "Assigned cleaners"
   end
 
   def time_clocks

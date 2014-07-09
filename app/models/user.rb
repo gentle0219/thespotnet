@@ -123,6 +123,9 @@ class User
     end
   end
 
+  def cleaners
+    members.where(role:User::MANAGER_ROLES[1])
+  end
   
   def property_locations
     p_ids = properties.map(&:id)

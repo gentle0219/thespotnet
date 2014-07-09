@@ -25,9 +25,10 @@ class Property
   has_many :assigns
   has_many :inventory_requests
   has_many :work_orders
+  has_many :lost_founds
 
   validates_presence_of :name, :pt_id, :address1, :city, :state, :phone
-  validates_uniqueness_of :pt_id
+  validates_uniqueness_of :pt_id, :device_id
 
   def location
     [address1, city, state, zip_code].join(", ")
@@ -66,5 +67,12 @@ class Property
     else
       self
     end
+  end
+
+  def last_cleaner
+    member_ids = assigns.map(&:member_id)
+    members = User.in(id:member_ids)
+    cleaners = members.where(role:User::MANAGER_ROLES[1]).order_by('last_sign_in_at DESC')
+    return cleaners.first
   end
 end

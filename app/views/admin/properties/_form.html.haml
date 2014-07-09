@@ -10,10 +10,11 @@
             .span4
               = f.input :name, required: true
               = f.input :address1, required: true
-            .span4.offset1
+            .span4
               = f.input :pt_id, required: true, label: "Property ID"
               = f.input :address2, required: false
-          
+            .span3
+              = f.input :device_id, required: false, label: "Device ID"
           .row
             .span4
               = f.input :city, required: false
@@ -25,7 +26,7 @@
           .row
             .span4
               = f.input :phone
-            .span4.offset1.location-list
+            .span4.location-list
               .control-group.string.optional.location
                 %label.string.optional.control-label{for: "location"} Location
                 .controls

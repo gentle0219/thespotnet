@@ -81,7 +81,7 @@ class Admin::PropertiesController < ApplicationController
 
   private
   def create_propery_params
-    params.require(:property).permit(:name, :pt_id, :address1, :address2, :city, :state, :zip_code, :phone, :geo_location_id, :bedrooms, :full_bathrooms, :half_bathrooms, :notes)
+    params.require(:property).permit(:name, :pt_id, :address1, :address2, :city, :state, :zip_code, :phone, :geo_location_id, :bedrooms, :full_bathrooms, :half_bathrooms, :notes, :device_id)
   end
 
   def create_owner_params

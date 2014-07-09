@@ -21,9 +21,10 @@
     parameters accepted
       'email'      String,      *required
       'password'   String,      *requried
-      'dev_id'     String,      device id or regid
+      'reg_id'     String,      *required for pushnotification
+      'dev_id'     String,      *required for indentify the property
     results:
-      {"success":{"id":"53a911233366390002000000","name":"","email":"tester1@email.com","auth_token":"Czvz82bxs6qUzkxzzaye","role":"cleaner", messages=>{id, body, level}}}
+      {"success":{"id":"53a911233366390002000000","name":"","email":"tester1@email.com","auth_token":"Czvz82bxs6qUzkxzzaye","role":"cleaner", property_id, messages=>{id, body, level}}}
     EX: curl -X POST -d 'email=tester1@email.com&password=tester1234&dev_id=1234567890&platform=Android' http://thespotnet.herokuapp.com/api/v1/accounts/sign_in
 
 ==== Sign Out
@@ -40,6 +41,14 @@
     results:
       {success: 'Email was sent successfully'}
 
+==== Get Last Cleaner from Property
+    GET: /api/v1/accounts/last_cleaner
+    Parameters:
+      auth_token,       String
+      property_id,      String
+    Results:
+      {success=>{id, phone, email}}
+
 
 
 === WorkOrders endpoint
@@ -47,6 +56,7 @@
     POST: api/v1/work_orders
     Parameters
         auth_token,    String
+        property_id,   String
         location,      String
         category,      category_id
         level,         String
@@ -167,9 +177,11 @@
 ==== Create new item
     POST: /api/v1/lost_founds/
     Parameters:
+      item_id,          String
       auth_token,       String
       item_name,        String
       description,      String
+      property_id,      String
     Results:
       {success=>{id, item_name, description}}
 
@@ -177,6 +189,7 @@
   GET: /api/v1/lost_founds/
     Parameters:
       auth_token,       String
+      property_id,      String
     Results:
       {success=>[{id, item_name, description}, ...]}
 

@@ -9,10 +9,12 @@ TheSpotNet::Application.routes.draw do
     resources :lost_founds
 
     #resources :cleaners
-    get 'cleaners_list'                   => 'cleaners#cleaners_list'    
+    get 'cleaners_list'                   => 'cleaners#cleaners_list'
+    delete 'cleaner/:id'                      => 'cleaners#delete_cleaner', as: 'delete_cleaner'
+
     post 'update_cleaners'                => 'cleaners#update_cleaners'
     get 'time_clocks'                     => 'cleaners#time_clocks'
-    get 'management'                     => 'cleaners#management'    
+    get 'management'                      => 'cleaners#management'    
   end
   
   mount API => '/'

@@ -5,14 +5,14 @@ class LostFound
   
   field :item_name,                   type: String
   field :description,                 type: String
-  field :lost,                        type: Boolean, default: false
+  field :lost,                        type: Boolean, default: true
 
-  belongs_to :user
+  belongs_to :user  # property manager or cleaner, inspector
   belongs_to :property
 
   validates_presence_of :item_name, :description, :user_id
 
-  def is_lost?
-    lost
-  end
+  scope :lost_items, -> {where(lost: true)}
+
+
 end
