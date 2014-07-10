@@ -16,7 +16,7 @@
         %tr
           %td= lf.item_name
           %td= lf.description
-          %td= lf.lost
+          %td= lf.lost? ? "Lost" : "Found"
           %td
             = link_to(edit_admin_lost_found_path(lf), class: 'btn btn-mini', :"data-no-turbolink"=>true) do
               %i.icon-pencil
