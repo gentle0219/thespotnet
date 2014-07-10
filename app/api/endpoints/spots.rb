@@ -14,12 +14,8 @@ module Endpoints
           destination = [receiver.device_id]
           data = {key:"#{user.name} sent you message '#{params[:body]}'"}
           notif = GCM.send_notification( destination, data )
-          
-          # p ">>>>--------------------------------->"
-          # p notif
-          # p ">>>>--------------------------------->"
-
           if message.save
+            Conversation.add_message(receiver, user, message)
             {success: "Your message has been sent successfully."}
           else
             {failed: message.errors.messages.to_json}

@@ -9,7 +9,8 @@ class Conversation
   # Array of user ids of users that have read all messages in this conversation
   field :last_message_seen_by, type: Array, default: []
 
-  has_many :messages
+  belongs_to :user
+  has_many :messages, :dependent => :destroy, order: ("created_at DESC")
   has_and_belongs_to_many :participants, :class_name => 'User'
 
   validates_presence_of :lookup_hash
@@ -20,14 +21,16 @@ class Conversation
 
   def self.add_message(recipient, sender, message)
     # Find or create a conversation:
-    conversation = Conversation.find_or_create_by(
-      get_lookup_hash([recipient.id, sender.id])) do |c|
-        c.participants.concat [recipient, sender]
-      end
-    conversation.messages << message
+    lookup_hash = Conversation.get_lookup_hash([recipient.id, sender.id])
+    conversation = Conversation.find_or_create_by(lookup_hash)    
+    conversation.participants.concat [recipient, sender]
+    # conversation.messages << message    
     conversation.last_message_time = Time.now
     conversation.last_message_seen_by.delete(recipient)
+    conversation.user = sender
+    conversation.lookup_hash = lookup_hash
     conversation.save
+    message.update_attribute(:conversation_id, conversation.id)
   end
 
   def self.find_or_create_by(lookup_hash)

@@ -83,3 +83,16 @@ legend.group-border {
   border: none;
   background-color: white;
 }
+
+
+.inbox-list{
+  .row{
+    margin-left: 0px;
+  }
+  .message-details{
+    background-color: #eee;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+     margin-bottom: 10px;
+  }  
+}

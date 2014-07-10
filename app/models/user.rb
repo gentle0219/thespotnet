@@ -70,8 +70,14 @@ class User
 
   has_many :sent_messages, class_name: "Message", foreign_key: 'sender_id'
   has_many :received_messages, class_name: "Message", foreign_key: 'receiver_id'
-  
+  # has_many :conversations
+
+
+  scope :cleaners, -> {where(role:User::MANAGER_ROLES[1])}
+  scope :inspectors, -> {where(role:User::MANAGER_ROLES[2])}
   scope :maintenances, -> {where(role:User::MANAGER_ROLES[3])}
+
+
 
   validates_presence_of :role
   
@@ -122,16 +128,16 @@ class User
       []
     end
   end
-
-  def cleaners
-    members.where(role:User::MANAGER_ROLES[1])
-  end
   
   def property_locations
     p_ids = properties.map(&:id)
     PropertyLocation.in(property_id:p_ids)
   end
-    
+  
+  def conversations
+    Conversation.in(participant_ids:self.id)
+  end
+
   def self.find_by_token token
     where(authentication_token:token).first
   end
