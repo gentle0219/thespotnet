@@ -96,10 +96,4 @@ TheSpotNet::Application.configure do
   config.action_mailer.default_url_options = {:host => 'thespotnet.herokuapp.com'}
   
   ENV["REDISTOGO_URL"] = 'redis://redistogo:717c04b41ecf432536445307ea6c29fe@pearlfish.redistogo.com:9755/'
-  
-  #ENV["S3_API_KEY_ID"] = "AKIAJCLA6YOYSMJGKDBQ"
-  #ENV["S3_API_SECRET_KEY"] = "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"
-  
-  #ENV['FACEBOOK_KEY'] = '788929617788505'
-  #ENV['FACEBOOK_SECRET'] = '923ff7b466ca621c6c6402a4c39645c1'    
 end

@@ -13,7 +13,7 @@
         .span1
           %label{style:'margin-top: 5px;text-align: right;'} Cleaner
         .span3{style:'margin-left: 5px;'}
-          = select_tag :cleaner, options_for_select(current_user.cleaners.map{|m| [m.email, m.id.to_s]}), name: "cleaners[cleaner]"
+          = select_tag :cleaner, options_for_select(User.cleaners.map{|m| [m.email, m.id.to_s]}), name: "cleaners[cleaner]"
       / - @properties.each do |property|
       /   .span6
       /     .row
