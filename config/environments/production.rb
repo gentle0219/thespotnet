@@ -93,7 +93,6 @@ TheSpotNet::Application.configure do
       :authentication => :plan,
       :enable_starttls_auto => true}
 
-  config.action_mailer.default_url_options = {:host => 'thespotnet.herokuapp.com'}
+  config.action_mailer.default_url_options = {:host => 'thespotnet.herokuapp.com'} 
   
-  ENV["REDISTOGO_URL"] = 'redis://redistogo:717c04b41ecf432536445307ea6c29fe@pearlfish.redistogo.com:9755/'
 end
